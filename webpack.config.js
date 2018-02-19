@@ -16,7 +16,7 @@ module.exports = {
     },
 
     output: {
-        path: outputPath + '/js',
+        path: outputPath,
         filename: "[name].js",
         library:  "[name]"
     },
