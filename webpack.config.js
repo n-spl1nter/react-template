@@ -120,6 +120,11 @@ if (NODE_ENV === 'prod') {
                 drop_console: true,
                 unsafe:       true
             }
+        }),
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: Infinity,
         })
     );
 }
