@@ -12,7 +12,10 @@ const NODE_ENV = process.env.NODE_ENV || 'dev';
 module.exports = {
 
     entry: {
-        app: __dirname + '/src/index.jsx'
+        app: [
+            'react-hot-loader/patch',
+            __dirname + '/src/index.jsx'
+        ]
     },
 
     output: {
@@ -34,10 +37,16 @@ module.exports = {
             {
                 test: /\.jsx$/,
                 exclude: /node_modules/,
+                enforce: 'pre',
+                use: 'eslint-loader'
+            },
+            {
+                test: /\.jsx$/,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    plugins: ['transform-runtime'],
-                    presets: ['es2015', 'stage-0', 'react']
+                    plugins: ['transform-runtime', 'react-hot-loader/babel'],
+                    presets: [['es2015', {modules: false}], 'react', 'stage-0']
                 }
             },
             {
@@ -100,6 +109,24 @@ module.exports = {
         }),
         new webpack.NamedModulesPlugin()
     ],
+
+    resolve: {
+        modules: ['node_modules'],
+        extensions: ['.js', '.jsx'],
+
+
+        alias: {
+            'src': path.resolve(__dirname, './src'),
+            'components': path.resolve(__dirname, './src/components'),
+            'containers': path.resolve(__dirname, './src/containers'),
+            'constants': path.resolve(__dirname, './src/constants'),
+            'actions': path.resolve(__dirname, './src/actions'),
+            'reducers': path.resolve(__dirname, './src/reducers'),
+            'store': path.resolve(__dirname, './src/store'),
+            'assets': path.resolve(__dirname, './src/assets'),
+        }
+
+    },
 
     devServer: {
         contentBase: outputPath,

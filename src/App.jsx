@@ -1,11 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {Provider} from 'react-redux';
 
-const App = (props) => {
-    return(
-        <h1>
-            Start
-        </h1>
-    );
-};
+import store from 'store';
 
+window.store = store;
+
+class App extends Component{
+
+    render(){
+        return(
+            <Provider store={store} key={module.hot ? Date.now() : store}>
+                <div>
+                    Start template
+                </div>
+            </Provider>
+        )
+    }
+
+}
 export default App;

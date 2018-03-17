@@ -1,11 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {AppContainer} from 'react-hot-loader';
 
-import App from './App.jsx'
+import App from 'src/App';
 
-import './assets/styles/styles.less';
+import 'assets/styles/styles.less';
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-);
+const renderApp = Component => {
+    ReactDOM.render(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('root'),
+    );
+};
+
+renderApp(App);
+
+if(module.hot){
+    module.hot.accept('src/App', () => renderApp(App));
+}
