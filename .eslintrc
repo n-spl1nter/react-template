@@ -1,8 +1,9 @@
 {
   "extends": [
-    "eslint:recommended"
-    /* "plugin:import/errors",
-    "plugin:import/warnings" */
+    "airbnb",
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -18,8 +19,8 @@
     }
   },
   "plugins": [
-    "react"
-    /* "import" */
+    "react",
+    "import"
   ],
   "rules": {
     "no-debugger": 0,
@@ -29,7 +30,8 @@
     "no-use-before-define": 1,
     "no-undef": 1,
     "eol-last": 0,
-    //"indent": ["error", 4],
+    "indent": ["error", 2],
+    "import/no-unresolved": 0,
     "quotes": [2, "single", {"allowTemplateLiterals": true}],
     "no-unused-vars": 1,
     "comma-dangle": 0,
@@ -39,6 +41,13 @@
     "jsx-quotes": [2, "prefer-double"],
     "react/jsx-no-undef": 2,
     "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1
+    "react/jsx-uses-vars": 1,
+    "semi": ["error", "always"],
+    "jsx-a11y/label-has-associated-control": 0,
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
+    "react/jsx-one-expression-per-line": [2, {"allow": "single-child"}]
+  },
+  "settings": {
+    "import/resolver": "webpack"
   }
 }
