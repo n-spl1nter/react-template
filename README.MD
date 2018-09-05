@@ -7,7 +7,11 @@ $ npm install
 ## Usage
 - Development mode:
 ```sh
-$ npm run start
+$ npm start
+```
+- Test mode:
+```sh
+$ npm test
 ```
 - Production mode:
 ```sh
