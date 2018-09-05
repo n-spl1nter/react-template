@@ -1,0 +1,20 @@
+{
+  "presets": [
+    ["@babel/env", { "targets": "> 0.25%, not dead" }],
+    "@babel/react"
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-transform-classes"
+  ],
+  "env": {
+    "development": {
+      "plugins": ["react-hot-loader/babel"]
+    },
+    "production": {
+      "plugins": [
+        ["@babel/transform-runtime", { "helpers": true, "regenerator": true }]
+      ]
+    }
+  }
+}
