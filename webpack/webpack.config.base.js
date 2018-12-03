@@ -3,7 +3,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const srcPath = __dirname + '/../src';
@@ -20,32 +19,6 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.less$/,
-        exclude: /node_modules/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: [
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9',
-                  ],
-                  flexbox: 'no-2009'
-                }),
-              ],
-              sourceMap: true
-            }
-          },
-          'less-loader'
-        ]
-      },
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
         exclude: [/img/],

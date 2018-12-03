@@ -3,6 +3,8 @@
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Base = require('./webpack.config.base.js');
+const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const srcPath = __dirname + '/../src';
 const outputPath = __dirname + '/../build';
@@ -14,12 +16,30 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    app: [srcPath + '/index_production.jsx', srcPath + '/assets/styles/main.less']
+    app: [srcPath + '/index_production.jsx', srcPath + '/assets/styles/main.scss']
   },
 
   module: {
     rules: [
       ...Base.module.rules,
+      {
+        test: /\.scss/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                autoprefixer({ flexbox: 'no-2009' }),
+              ],
+              sourceMap: true
+            }
+          },
+          'sass-loader'
+        ]
+      },
       {
         test: /\.js(x*)?$/,
         exclude: /node_modules/,
@@ -54,7 +74,7 @@ module.exports = {
             unsafe_comps: true,
             properties: true,
             keep_fargs: false,
-            pure_getters: true,
+            pure_getters: false,
             collapse_vars: true,
             unsafe: true,
             warnings: false,

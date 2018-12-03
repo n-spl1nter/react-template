@@ -1,8 +1,9 @@
 'use strict';
 
 const webpack = require('webpack');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const Base = require('./webpack.config.base.js');
+const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const srcPath = __dirname + '/../src';
 const outputPath = __dirname + '/../build';
@@ -14,12 +15,38 @@ module.exports = {
   mode: 'development',
 
   entry: {
-    app: [srcPath + '/index.jsx', srcPath + '/assets/styles/main.less']
+    app: [srcPath + '/index.jsx', srcPath + '/assets/styles/main.scss']
   },
 
   module: {
     rules: [
       ...Base.module.rules,
+      {
+        test: /\.scss/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                autoprefixer({
+                  browsers: [
+                    '>0.5%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9',
+                  ],
+                  flexbox: 'no-2009'
+                }),
+              ],
+              sourceMap: true
+            }
+          },
+          'sass-loader'
+        ]
+      },
       {
         test: /\.js(x*)?$/,
         enforce: 'pre',
